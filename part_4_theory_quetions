@@ -1,0 +1,56 @@
+Question 1: Explain how FastAPI handles asynchronous requests and its benefits over synchronous code in Python.
+    * When FastAPI is used asynchronously, all tasks are executed in a single thread,
+    while the asyncio event loop manages the processing of concurrent requests by allowing context switches between them.
+    This way, FastAPI appears to handle requests in parallel, but this is not entirely accurate.
+    * Benefits
+        1. Concurrency:
+            Sync: Handles requests sequentially, one at a time.
+            Async: Handles multiple requests concurrently, potentially improving responsiveness under load.
+        2. Blocking Behavior:
+            Sync: Blocks until a request is fully processed, which may lead to slower response times.
+            Async: Doesn’t block, allowing the API to execute other tasks while waiting for asynchronous operations to complete.
+        3. Scalability:
+            Sync: Simpler to implement but may have scalability issues under heavy load.
+            Async: More complex but can provide better scalability and responsiveness,
+             making it suitable for applications with many concurrent operations.
+
+
+ Question 2: Describe how dependency injection works in FastAPI and give an example of its practical use.
+   *  With the Dependency Injection system, we can also tell FastAPI that your path operation function also
+     "depends" on something else that should be executed before your path operation function,
+     and FastAPI will take care of executing it and "injecting" the results.
+   * Integrations and "plug-ins" can be built using the Dependency Injection system. But in fact, there is actually no need to create "plug-ins",
+     as by using dependencies it's possible to declare an infinite number of integrations and interactions that become available to
+      your path operation functions.
+   * And dependencies can be created in a very simple and intuitive way that allows you to just import the Python
+    packages you need, and integrate them with your API functions in a couple of lines of code, literally.
+   * For example, let's say you have 4 API endpoints (path operations):
+
+    /items/public/
+    /items/private/
+    /users/{user_id}/activate
+    /items/pro/
+
+    then we could add different permission requirements for each of them just with dependencies and sub-dependencies:
+
+    current_user :
+        * active_user
+        * /items/public/
+
+            active_user: admin_user -> /users/{user_id}/activate
+                        paying_user -> /items/pro/
+                        /items/private/
+
+
+Question 3: Code walkthrough
+
+    Query :  Sqlalchemy-ORM
+    Database setup : configuration is in "config" folder
+    Models : Book, Review
+    ERD: review model has foreignkey(book_id) relationship with Book model.
+    Schema : book_info, review_info with "data validation using pydantic models"
+    * Written CRUD Operation for Book and Review Model using RESTful API
+
+    * Sending confirmation mail after review is posted
+
+    *  As per Assessment all 4 parts task is implemented.
