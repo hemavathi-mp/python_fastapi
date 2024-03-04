@@ -1,0 +1,12 @@
+
+Language : Python 3.9
+Framework : FastAPI
+Database : mysql
+Query :  Sqlalchemy-ORM
+Database setup : configuration is in "config" folder
+Models : Book, Review
+	ERD: review model has foreignkey(book_id) relationship with Book model.
+Schema : book_info, review_info with "data validation using pydantic models"
+* Written CRUD Operation for Book and Review Model using RESTful API
+
+* Sending confirmation mail after review is posted
